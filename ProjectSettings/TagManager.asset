@@ -16,7 +16,7 @@ TagManager:
   - DynamicObject
   - PickUp
   - Hazard
-  - 
+  - CameraBounds
   - 
   - 
   - 
