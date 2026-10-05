@@ -3,6 +3,12 @@ using UnityEngine;
 public class HazardRespawn : MonoBehaviour
 {
     [SerializeField] private Transform respawnPoint;
+    private GameSession session;
+
+    private void Start()
+    {
+        session = FindFirstObjectByType<GameSession>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -16,5 +22,7 @@ public class HazardRespawn : MonoBehaviour
         body.linearVelocity = Vector3.zero;
         body.angularVelocity = Vector3.zero;
         Physics.SyncTransforms();
+
+        if (session != null) session.ApplyDamage(10);
     }
 }

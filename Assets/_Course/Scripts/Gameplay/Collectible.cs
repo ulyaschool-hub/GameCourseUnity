@@ -4,6 +4,7 @@ using UnityEngine;
 public class Collectible : MonoBehaviour
 {
     [SerializeField, Min(1)] private int value = 1;
+    private GameSession session;
     private bool collected;
 
     private void Reset()
@@ -11,13 +12,16 @@ public class Collectible : MonoBehaviour
         GetComponent<Collider>().isTrigger = true;
     }
 
+    private void Start()
+    {
+        session = FindFirstObjectByType<GameSession>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (collected || !other.CompareTag("Player")) return;
-
         collected = true;
-        Debug.Log($"Collected {name}; value = {value}", this);
+        if (session != null) session.AddScore(value);
         gameObject.SetActive(false);
     }
 }
-
